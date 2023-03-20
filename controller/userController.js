@@ -1,4 +1,5 @@
 const Users = require("../models/userModel")
+const Posts = require("../models/postsModel")
 var jwt = require("jsonwebtoken")
 
 
@@ -55,6 +56,8 @@ async function get(){
 }
 async function show(id){
     var user = await Users.findById(id);
+    var Post = await Posts.find({user:user._id})
+    var user = {"user":user, "Posts":Post}
     return user
 }
 async function update(id,data){

@@ -1,5 +1,7 @@
 const Posts = require("../models/postsModel")
 const Comments = require("../models/commentsModel")
+const Reviews = require("../models/reviewsModel")
+
 
 
 async function add(req){
@@ -17,8 +19,8 @@ async function get(req){
 async function show(id){
     var post = await Posts.findById(id);
     var comment = await Comments.find({post:post._id})
-    console.log(comment)
-    var post = {"post":post, "comments":comment}
+    var Review = await Reviews.find({post:post._id})
+    var post = {"post":post, "comments":comment, "Reviews":Review}
     return post
 }
 async function update(data,id){
@@ -32,13 +34,3 @@ async function remove(id){
 }
 
 module.exports = {add,get,show,update,remove}
-
-
-
-//ali
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTA5Y2QxNDkwM2MwNGFhM2M5M2NjMiIsImlhdCI6MTY3ODgxMDMyNywiZXhwIjoxNjc4ODEzOTI3fQ.Pq2oa6yxa-xiGXQjlrtpSZxYbGuWEcj_fqYT-tPAqdg 
-
-
-
-//abdelrahman
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTA5Y2M1NDkwM2MwNGFhM2M5M2NjMCIsImlhdCI6MTY3ODgxMDM1MywiZXhwIjoxNjc4ODEzOTUzfQ.QtSPsiTTFI_LHQTUtxn_0CIMMJ7Jm7ruporfKCMVB6E
