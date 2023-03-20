@@ -23,7 +23,7 @@ async function login(data,next){
 
     // if name and password true generate token for this user 
     const payload = {id:user._id}
-    const token = jwt.sign(payload,process.env.JWTSECRET,{expiresIn:'1h'})
+    const token = jwt.sign(payload,process.env.JWTSECRET,{expiresIn:'10h'})
 
     var response = {
         message:"logged successfully",

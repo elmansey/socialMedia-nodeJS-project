@@ -1,6 +1,5 @@
 const Posts = require("../models/postsModel")
-
-
+const Comments = require("../models/commentsModel")
 
 
 async function add(req){
@@ -17,6 +16,9 @@ async function get(req){
 }
 async function show(id){
     var post = await Posts.findById(id);
+    var comment = await Comments.find({post:post._id})
+    console.log(comment)
+    var post = {"post":post, "comments":comment}
     return post
 }
 async function update(data,id){
