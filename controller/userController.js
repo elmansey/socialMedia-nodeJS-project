@@ -46,8 +46,18 @@ async function register(data){
    await user.save()
    return user
 }
-async function add(data){
 
+async function addCreator(data){
+    console.log(data)
+    var {username,email,password} = data
+    var user = new Users ({
+        username ,
+        email ,
+        password,
+        role:"creator"
+    })
+   await user.save()
+   return user
 }
 // all users 
 async function get(){
@@ -70,4 +80,4 @@ async function remove(id){
 }
 
 
-module.exports = {login,register,add,get,show,update,remove}
+module.exports = {login,register,get,show,update,remove, addCreator}

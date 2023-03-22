@@ -3,6 +3,8 @@ const router = express.Router();
 const Users = require("../controller/userController")
 var bcrypt = require('bcryptjs');
 var validator = require('../middleware/validator');
+const RouteTokenValidator = require("../middleware/validateToken")
+var roleValidator = require('../middleware/RoleValidator')
 
 
 
@@ -21,6 +23,18 @@ router.post('/login', validator.loginValidator, async (req, res, next) => {
 // add users => register 
 router.post('/', validator.RegisterValidator, async (req, res, next) => {
     try{
+        var data = req.body
+        var response = await Users.addCreator(data)
+       res.send(response)
+    }catch(err){
+        next(err)
+    }
+})
+
+// add creator
+router.post('/addCreator', validator.RegisterValidator, RouteTokenValidator, roleValidator, async (req, res, next) => {
+    try{
+        console.log(req.body)
         var data = req.body
         var response = await Users.register(data)
        res.send(response)

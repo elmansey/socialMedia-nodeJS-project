@@ -17,12 +17,18 @@ const UsersSchema = new mongoose.Schema({
         required: [true, 'the password is required !'],
         select:false
     },
+    role: {
+        type: String,
+        enum:["user","creater", "admin"],
+        default: "user",
+        required: [true]
+    },
 
 },
 {
     toJSON:{
 		transform: (doc,ret)=>{
-			const data_re = _.pick(ret,['_id','username','email'])
+			const data_re = _.pick(ret,['_id','username','email', 'role'])
 			return data_re;
 		}
 	}
