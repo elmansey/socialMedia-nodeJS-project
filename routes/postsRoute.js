@@ -57,6 +57,4 @@ router.delete('/:id', RouteTokenValidator ,   async (req, res, next) => {
     }
 })
 
-
-
 module.exports = router

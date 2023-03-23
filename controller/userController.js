@@ -60,7 +60,7 @@ async function show(id){
     return user
 }
 async function update(id,data){
-    var user = await Users.findOneAndUpdate(id,data );
+    var user = await Users.findOneAndUpdate(id,data);
     return user
 }
 async function remove(id){

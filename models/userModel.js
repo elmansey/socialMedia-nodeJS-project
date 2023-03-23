@@ -23,6 +23,11 @@ const UsersSchema = new mongoose.Schema({
         default: "user",
         required: [true]
     },
+    img: {
+        type: String,
+        default:"",
+        select:false
+    }
 
 },
 {

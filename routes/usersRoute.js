@@ -4,9 +4,22 @@ const Users = require("../controller/userController")
 var bcrypt = require('bcryptjs');
 var validator = require('../middleware/validator');
 const RouteTokenValidator = require("../middleware/validateToken")
+// const imagerole = require('../middleware/imagerole')
 
+const multer = require('multer');
+const { json } = require('express');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './img');
+    },
+    filename: (req, file, cb) => {
+      const ext = file.mimetype.split('/')[1];
+      cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
+    }
+});
 
-
+const upload = multer({storage}).single('img');
+// exports.uploadUserPhoto = upload.single('photo');
 
 // login 
 router.post('/login', validator.loginValidator, async (req, res, next) => {
@@ -24,7 +37,7 @@ router.post('/login', validator.loginValidator, async (req, res, next) => {
 router.post('/', validator.RegisterValidator, async (req, res, next) => {
     try{
         var data = req.body
-        var response = await Users.addCreator(data)
+        var response = await Users.register(data)
        res.send(response)
     }catch(err){
         next(err)
@@ -77,9 +90,17 @@ router.delete('/:id',  async (req, res, next) => {
     }
 })
 
-
-
+router.post('/uploadimg',RouteTokenValidator,upload,async (req, res, next) => {
+    try{
+    console.log(req)
+    var id = req.user._id.toHexString()
+    console.log(id)
+    var img = req.file.filename
+    console.log(img)
+    var response = await Users.update(id,{img:img})
+    res.send("true")
+    }catch(err){
+        next(err)
+    }
+} )
 module.exports = router
-
-
-
