@@ -1,28 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Users = require("../controller/userController")
+const Users = require("../controller/creatorController")
 var bcrypt = require('bcryptjs');
 var validator = require('../middleware/validator');
 const RouteTokenValidator = require("../middleware/validateToken")
+var validateRole = require('../middleware/RoleValidator')
 
 
 
 
-// login 
-router.post('/login', validator.loginValidator, async (req, res, next) => {
+
+
+
+// add creator
+router.post('/', validator.RegisterValidator, RouteTokenValidator, validateRole, async (req, res, next) => {
     try{
-        var data = req.body
-        var response = await Users.login(data,next)
-        res.send(response)
-    }catch(err){
-        next(err)
-    }
-})
-
-
-// add users => register 
-router.post('/', validator.RegisterValidator, async (req, res, next) => {
-    try{
+        console.log(req.body)
         var data = req.body
         var response = await Users.addCreator(data)
        res.send(response)
@@ -30,10 +23,8 @@ router.post('/', validator.RegisterValidator, async (req, res, next) => {
         next(err)
     }
 })
-
-
   
-// all users 
+// all creator 
 router.get('/',  async (req, res, next) => {
     try{
         var response = await Users.get()

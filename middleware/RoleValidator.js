@@ -11,8 +11,10 @@ async function validateRole(req, res, next) {
       // find user by id
       const user = await Users.findById(id);
       //  attach user to request body
-      console.log(user.ro)
-      if(!user.role == "admin"){
+      console.log(user)
+      if(user.role != "admin"){
+        const error = new Error('unauthorized to visit this route ');
+        error.statusCode = 401;
         return next(error)
       }
       next();	

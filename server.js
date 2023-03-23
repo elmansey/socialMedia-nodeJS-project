@@ -15,7 +15,7 @@ const userRoute  = require('./routes/usersRoute')
 const postsRoute  = require('./routes/postsRoute')
 const commentsRoute  = require('./routes/commentsRoute')
 const reviewsRoute  = require('./routes/reviewsRoute')
-
+const creatorRoute  = require('./routes/creatorRoute')
 
 
 
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use("/users",userRoute)
 app.use("/posts",postsRoute)
 app.use("/comments",commentsRoute)
-app.use("/reviews",reviewsRoute)
+app.use("/creators",creatorRoute)
 
 
 
