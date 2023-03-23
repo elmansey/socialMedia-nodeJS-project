@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Users = require("../controller/userController")
+const User = require("../models/userModel")
+
 var bcrypt = require('bcryptjs');
 var validator = require('../middleware/validator');
 const RouteTokenValidator = require("../middleware/validateToken")
@@ -92,13 +94,11 @@ router.delete('/:id',  async (req, res, next) => {
 
 router.post('/uploadimg',RouteTokenValidator,upload,async (req, res, next) => {
     try{
-    console.log(req)
-    var id = req.user._id.toHexString()
-    console.log(id)
-    var img = req.file.filename
-    console.log(img)
-    var response = await Users.update(id,{img:img})
-    res.send("true")
+        var id = req.user._id.toHexString()
+        var img = req.file.filename
+        var data ={img}
+        var response = await User.updateOne({_id:id},data);
+        res.send("uploded succesfully ! ")
     }catch(err){
         next(err)
     }
