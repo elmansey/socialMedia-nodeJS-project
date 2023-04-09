@@ -23,6 +23,7 @@ app.use(express.json());
 app.use("/users",userRoute)
 app.use("/posts",postsRoute)
 app.use("/comments",commentsRoute)
+app.use("/reviews",reviewsRoute)
 app.use("/creators",creatorRoute)
 
 
